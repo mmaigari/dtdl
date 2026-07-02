@@ -34,7 +34,7 @@ export async function submitScheduleVisit(
       },
       body: JSON.stringify({
         from: "DTDL Website <noreply@dantatatown.com>",
-        to: ["dantatatown@gmail.com"],
+        to: ["info@dantatatown.com"],
         reply_to: payload.email,
         subject: `Site Visit Request — ${payload.project}`,
         text: [

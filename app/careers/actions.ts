@@ -41,7 +41,7 @@ export async function submitApplication(
       },
       body: JSON.stringify({
         from: "DTDL Careers <noreply@dantatatown.com>",
-        to: ["dantatatown@gmail.com"],
+        to: ["info@dantatatown.com"],
         reply_to: payload.email,
         subject: `Application — ${payload.position}`,
         text: [

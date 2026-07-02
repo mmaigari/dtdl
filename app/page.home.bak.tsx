@@ -76,7 +76,7 @@ export default function HomePage() {
               addressCountry: "NG",
             },
             telephone: "+2348090500100",
-            email: "dantatatown@gmail.com",
+            email: "info@dantatatown.com",
             areaServed: "Nigeria",
             foundingDate: "2012",
             founder: {

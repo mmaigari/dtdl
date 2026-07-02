@@ -128,8 +128,8 @@ export default function Footer() {
                 <p>Off Ademola Adetokunbo Crescent</p>
                 <p>Abuja, Nigeria</p>
                 <p className="pt-2">
-                  <a href="mailto:dantatatown@gmail.com" className="hover:text-gold transition-colors">
-                    dantatatown@gmail.com
+                  <a href="mailto:info@dantatatown.com" className="hover:text-gold transition-colors">
+                    info@dantatatown.com
                   </a>
                 </p>
                 <p>

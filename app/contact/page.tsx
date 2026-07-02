@@ -33,8 +33,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    lines: ["dantatatown@gmail.com"],
-    actions: [{ href: "mailto:dantatatown@gmail.com", label: "Email us" }],
+    lines: ["info@dantatatown.com"],
+    actions: [{ href: "mailto:info@dantatatown.com", label: "Email us" }],
   },
   {
     icon: Clock,

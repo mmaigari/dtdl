@@ -27,7 +27,7 @@ export async function submitContact(input: ContactInput): Promise<ContactResult>
       },
       body: JSON.stringify({
         from: "DTDL Website <noreply@dantatatown.com>",
-        to: ["dantatatown@gmail.com"],
+        to: ["info@dantatatown.com"],
         reply_to: payload.email,
         subject: `[Website Contact] ${payload.subject}`,
         text: [

@@ -197,11 +197,11 @@ export default function MaintenanceScreen() {
               +234 809 050 0100
             </a>
             <a
-              href="mailto:dantatatown@gmail.com"
+              href="mailto:info@dantatatown.com"
               className="inline-flex items-center gap-2 hover:text-gold transition-colors"
             >
               <Mail size={14} className="text-gold" />
-              dantatatown@gmail.com
+              info@dantatatown.com
             </a>
             <span className="inline-flex items-center gap-2 text-cream/55">
               <MapPin size={14} className="text-gold" />

@@ -208,10 +208,10 @@ export default function InvestorsPage() {
               <p>
                 Email:{" "}
                 <a
-                  href="mailto:dantatatown@gmail.com"
+                  href="mailto:info@dantatatown.com"
                   className="text-accent hover:underline"
                 >
-                  dantatatown@gmail.com
+                  info@dantatatown.com
                 </a>
               </p>
               <p>
