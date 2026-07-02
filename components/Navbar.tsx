@@ -10,6 +10,7 @@ import ExpressInterestButton from "@/components/ExpressInterestButton";
 
 const navLinks = [
   { label: "Projects", href: "/projects" },
+  { label: "Gallery", href: "/gallery" },
   { label: "About", href: "/about" },
   { label: "Infrastructure", href: "/infrastructure" },
   { label: "Investors", href: "/investors" },
@@ -105,7 +106,7 @@ export default function Navbar() {
           }`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
+          aria-expanded={mobileOpen ? "true" : "false"}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

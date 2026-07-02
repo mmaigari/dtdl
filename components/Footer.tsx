@@ -8,6 +8,7 @@ import PageContainer from "@/components/PageContainer";
 const footerLinks = {
   company: [
     { label: "About Us", href: "/about" },
+    { label: "Gallery", href: "/gallery" },
     { label: "Careers", href: "/careers" },
     { label: "Investors", href: "/investors" },
     { label: "Infrastructure", href: "/infrastructure" },

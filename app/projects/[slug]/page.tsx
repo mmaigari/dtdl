@@ -6,9 +6,11 @@ import PageContainer from "@/components/PageContainer";
 import ExpressInterestButton from "@/components/ExpressInterestButton";
 import ScheduleVisitButton from "@/components/ScheduleVisitButton";
 import ProjectGallery from "@/components/ProjectGallery";
+import { ImageIcon, ArrowUpRight } from "lucide-react";
 import {
   getProjectBySlug,
   getAllProjectSlugs,
+  getPixiesetUrl,
   projects,
   type Project,
 } from "@/lib/projects";
@@ -157,7 +159,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </section>
 
       {/* ── Image break ── */}
-      {project.galleryImages[0] && (
+      {project.galleryImages?.[0] && (
         <section className="relative">
           <div className="relative aspect-[21/9] lg:aspect-[21/8] overflow-hidden bg-paper-deep">
             <Image
@@ -225,18 +227,63 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </PageContainer>
       </section>
 
-      {/* ── Gallery — Embla carousel ── */}
-      <section className="py-20 lg:py-32 bg-paper-deep/40">
-        <PageContainer>
-          <div className="mb-12">
-            <p className="serial">Gallery</p>
-            <h2 className="display-serif text-3xl md:text-4xl mt-4">
-              Visual record.
-            </h2>
-          </div>
-          <ProjectGallery images={project.galleryImages} alt={project.title} />
-        </PageContainer>
-      </section>
+      {/* ── Gallery — Embla carousel (only when on-site photos exist) ── */}
+      {project.galleryImages && project.galleryImages.length >= 2 ? (
+        <section className="py-20 lg:py-32 bg-paper-deep/40">
+          <PageContainer>
+            <div className="mb-12">
+              <p className="serial">Gallery</p>
+              <h2 className="display-serif text-3xl md:text-4xl mt-4">
+                Visual record.
+              </h2>
+            </div>
+            <ProjectGallery images={project.galleryImages} alt={project.title} />
+          </PageContainer>
+        </section>
+      ) : (
+        <section className="py-20 lg:py-32 bg-paper-deep/40">
+          <PageContainer>
+            <div className="mb-12">
+              <p className="serial">Gallery</p>
+              <h2 className="display-serif text-3xl md:text-4xl mt-4">
+                The full photo portfolio.
+              </h2>
+            </div>
+            <a
+              href={getPixiesetUrl(project)}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="group block bg-ink text-cream rounded-2xl overflow-hidden relative"
+            >
+              <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle_at_1px_1px,_white_1px,_transparent_0)] [background-size:32px_32px]" />
+              <div className="relative grid md:grid-cols-12 gap-6 p-8 md:p-12 items-center">
+                <div className="md:col-span-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <ImageIcon size={14} className="text-gold" />
+                    <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-gold">
+                      Pixieset · high-resolution portfolio
+                    </span>
+                  </div>
+                  <h3 className="display-serif text-3xl md:text-4xl mb-3">
+                    Browse the full {project.title} collection.
+                  </h3>
+                  <p className="text-cream/70 max-w-xl leading-relaxed">
+                    We host the complete high-resolution photo library on
+                    Pixieset — architectural renders, unit interiors, site
+                    progress and drone shots. Opens in a new tab.
+                  </p>
+                </div>
+                <div className="md:col-span-4 md:text-right">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-maroon text-cream px-6 py-3 text-sm font-medium group-hover:bg-maroon-700 transition-colors">
+                    View portfolio
+                    <ArrowUpRight size={16} />
+                  </span>
+                </div>
+              </div>
+            </a>
+          </PageContainer>
+        </section>
+      )}
 
       {/* ── Adjacent estates ── */}
       <section className="border-t border-ink">
