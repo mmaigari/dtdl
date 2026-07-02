@@ -1,0 +1,111 @@
+<h2>Homepage hero — three directions</h2>
+<p class="subtitle">All three keep your Bordeaux / Gilt / Paper / Fraunces system. The difference is structure and what the hero is *for*.</p>
+
+<style>
+  .hero-mock { background: #f4efe7; color: #1a1410; border: 1px solid rgba(26,20,16,.12); padding: 0; overflow: hidden; font-family: ui-sans-serif, system-ui; }
+  .hero-mock .pad { padding: 28px 28px 24px; }
+  .hero-mock .serial { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #6b5e54; }
+  .hero-mock h4 { font-family: Georgia, serif; font-weight: 300; line-height: .95; letter-spacing: -.02em; margin: 12px 0; }
+  .hero-mock .meta { display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; border-top:1px solid rgba(26,20,16,.12); border-bottom:1px solid rgba(26,20,16,.12); padding: 12px 0; margin-top: 14px; }
+  .hero-mock .meta dt { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color:#6b5e54; }
+  .hero-mock .meta dd { font-family: Georgia, serif; font-size: 14px; margin: 4px 0 0; }
+  .hero-mock .btn { display:inline-block; padding: 10px 18px; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; }
+  .hero-mock .btn-primary { background:#4a1525; color:#f4efe7; }
+  .hero-mock .btn-ghost { color:#1a1410; border:1px solid #1a1410; }
+  .hero-mock .imgblock { background: linear-gradient(135deg, #4a1525 0%, #1a1410 50%, #9d8466 100%); position:relative; }
+  .hero-mock .imgblock::after { content:"residential estate photo"; position:absolute; bottom:8px; right:10px; color:rgba(244,239,231,.55); font-size:10px; letter-spacing:.15em; text-transform:uppercase; }
+  .hero-mock .search { background:#fff; border:1px solid rgba(26,20,16,.12); display:grid; grid-template-columns: 1.2fr 1fr 1fr auto; align-items:stretch; margin-top: 14px; }
+  .hero-mock .search > div { padding: 10px 12px; border-right: 1px solid rgba(26,20,16,.08); font-size: 12px; }
+  .hero-mock .search > div small { display:block; font-family: ui-monospace, monospace; font-size: 9px; letter-spacing:.15em; text-transform:uppercase; color:#6b5e54; margin-bottom: 4px; }
+  .hero-mock .search button { background:#4a1525; color:#f4efe7; border:0; padding: 0 20px; font-size: 11px; letter-spacing:.15em; text-transform:uppercase; }
+</style>
+
+<div class="cards">
+
+  <!-- A: Editorial -->
+  <div class="card" data-choice="editorial" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-mock">
+        <div class="pad">
+          <div class="serial">N&deg; 001 &nbsp;&middot;&nbsp; Master-planned communities &nbsp;&middot;&nbsp; Est. 2012</div>
+          <h4 style="font-size: 30px">Creating sustainable,<br/>world-class living spaces.</h4>
+          <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:18px; margin-top: 14px;">
+            <div>
+              <p style="font-size:12px; color:#6b5e54; line-height:1.55;">Infrastructure-driven real-estate development across Abuja and Kano &mdash; built on roads, power, water, and a long view of community.</p>
+              <div style="margin-top:14px;">
+                <span class="btn btn-primary">Explore projects</span>
+                &nbsp;&nbsp;<span class="btn btn-ghost">Book a site visit</span>
+              </div>
+            </div>
+            <div class="imgblock" style="min-height: 140px;"></div>
+          </div>
+          <dl class="meta">
+            <div><dt>Estates</dt><dd>12+</dd></div>
+            <div><dt>Hectares</dt><dd>1,400</dd></div>
+            <div><dt>Cities</dt><dd>Abuja &middot; Kano</dd></div>
+            <div><dt>Since</dt><dd>2012</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A &mdash; Editorial</h3>
+      <p>Asymmetric. Type-led. Image as a column, not a backdrop. Plays your Fraunces + JetBrains system loudest. Most distinctive, least generic. Premium &amp; institutional.</p>
+    </div>
+  </div>
+
+  <!-- B: Cinematic -->
+  <div class="card" data-choice="cinematic" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-mock">
+        <div class="imgblock" style="min-height: 230px; display:flex; align-items:flex-end;">
+          <div class="pad" style="color:#f4efe7;">
+            <div class="serial" style="color:rgba(244,239,231,.7)">Dantata Town Developers &middot; Est. 2012</div>
+            <h4 style="font-size: 28px; color:#f4efe7;">Creating sustainable,<br/>world-class living spaces.</h4>
+            <p style="font-size:12px; color:rgba(244,239,231,.85); margin-top:10px; max-width: 380px;">Infrastructure-driven communities across Abuja and Kano.</p>
+            <div style="margin-top:14px;">
+              <span class="btn btn-primary" style="background:#cbb492; color:#1a1410;">Explore projects</span>
+              &nbsp;&nbsp;<span class="btn btn-ghost" style="color:#f4efe7; border-color:#f4efe7;">Book a site visit</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 10px 28px; display:flex; justify-content:space-between; font-family:ui-monospace,monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6b5e54; border-top:1px solid rgba(26,20,16,.12);">
+          <span>Scroll &darr;</span><span>01 / 04 featured</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B &mdash; Cinematic (elevated)</h3>
+      <p>Your current direction, done properly. Slow Ken Burns motion, slide-rotated featured estates, refined typography. Familiar to luxury-real-estate buyers. Safer pick.</p>
+    </div>
+  </div>
+
+  <!-- C: Search-first -->
+  <div class="card" data-choice="search" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="hero-mock">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; min-height: 230px;">
+          <div class="pad">
+            <div class="serial">Find your home</div>
+            <h4 style="font-size: 26px">Estates built on<br/>infrastructure.</h4>
+            <p style="font-size:12px; color:#6b5e54; margin-top: 8px;">Abuja &amp; Kano &middot; 12+ communities</p>
+            <div class="search">
+              <div><small>Location</small>Abuja</div>
+              <div><small>Unit</small>3-bed terrace</div>
+              <div><small>Budget</small>&#x20A6;80&ndash;150M</div>
+              <button>Search</button>
+            </div>
+            <p style="font-size:10px; color:#6b5e54; margin-top:10px; letter-spacing:.1em; text-transform:uppercase;">Or &nbsp;&middot;&nbsp; book a site visit</p>
+          </div>
+          <div class="imgblock"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C &mdash; Search-first</h3>
+      <p>Embedded mini-finder (location &times; unit &times; budget) right in the hero. Highest conversion, most utilitarian. Feels more like a marketplace than a developer. Less identity, more commerce.</p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:24px"><strong>My recommendation: A (Editorial)</strong> &mdash; it's the only one that fully exploits the design system you've already invested in, and it's the one Cosgrove/Urban Shelter <em>can't</em> copy because they don't have the type foundation. We can still put a "Find your home" CTA in the section below the hero to get C's commercial benefit without diluting identity.</p>
