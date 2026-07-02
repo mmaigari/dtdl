@@ -6,13 +6,6 @@ import SmoothScroll from "@/components/SmoothScroll";
 import ExpressInterestProvider from "@/components/ExpressInterestProvider";
 import FloatingContact from "@/components/FloatingContact";
 import PageTransition from "@/components/PageTransition";
-import PreviewBadge from "@/components/PreviewBadge";
-import { cookies } from "next/headers";
-import {
-  MAINTENANCE_MODE,
-  PREVIEW_COOKIE,
-  PREVIEW_TOKEN,
-} from "@/lib/config";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -60,26 +53,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const cookieStore = await cookies();
-  const previewActive =
-    cookieStore.get(PREVIEW_COOKIE)?.value === PREVIEW_TOKEN;
-  const lockdown = MAINTENANCE_MODE && !previewActive;
-
-  if (lockdown) {
-    return (
-      <html lang="en">
-        <body
-          className={`${fraunces.variable} ${manrope.variable} ${jetbrains.variable} antialiased font-sans`}
-        >
-          <ExpressInterestProvider>{children}</ExpressInterestProvider>
-        </body>
-      </html>
-    );
-  }
-
   return (
     <html lang="en">
       <body
@@ -96,7 +72,6 @@ export default async function RootLayout({
           </main>
           <Footer />
           <FloatingContact />
-          {previewActive && <PreviewBadge />}
         </ExpressInterestProvider>
       </body>
     </html>
