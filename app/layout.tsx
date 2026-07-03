@@ -6,6 +6,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import ExpressInterestProvider from "@/components/ExpressInterestProvider";
 import FloatingContact from "@/components/FloatingContact";
 import PageTransition from "@/components/PageTransition";
+import TawkWidget from "@/components/TawkWidget";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -72,6 +73,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <FloatingContact />
+          <TawkWidget />
         </ExpressInterestProvider>
       </body>
     </html>

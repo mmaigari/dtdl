@@ -8,7 +8,7 @@ export default function FloatingContact() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 left-6 z-[60] flex flex-col items-start gap-3">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -16,27 +16,27 @@ export default function FloatingContact() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-2 items-end"
+            className="flex flex-col gap-2 items-start"
           >
             <a
               href="https://wa.me/2349011191919"
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-3 bg-cream text-ink shadow-lg pl-4 pr-2 py-2 rounded-full border border-ink/5 hover:bg-white"
+              className="group flex items-center gap-3 bg-cream text-ink shadow-lg pl-2 pr-4 py-2 rounded-full border border-ink/5 hover:bg-white"
             >
-              <span className="text-sm font-medium pr-1">WhatsApp us</span>
               <span className="w-9 h-9 rounded-full bg-[#25D366] text-white grid place-items-center">
                 <MessageCircle size={16} />
               </span>
+              <span className="text-sm font-medium pl-1">WhatsApp us</span>
             </a>
             <a
               href="tel:+2348090500100"
-              className="group flex items-center gap-3 bg-cream text-ink shadow-lg pl-4 pr-2 py-2 rounded-full border border-ink/5 hover:bg-white"
+              className="group flex items-center gap-3 bg-cream text-ink shadow-lg pl-2 pr-4 py-2 rounded-full border border-ink/5 hover:bg-white"
             >
-              <span className="text-sm font-medium pr-1">Call sales</span>
               <span className="w-9 h-9 rounded-full bg-maroon text-cream grid place-items-center">
                 <Phone size={15} />
               </span>
+              <span className="text-sm font-medium pl-1">Call sales</span>
             </a>
           </motion.div>
         )}

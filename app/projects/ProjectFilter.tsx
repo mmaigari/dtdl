@@ -15,7 +15,7 @@ interface ProjectFilterProps {
 
 export default function ProjectFilter({ activeType }: ProjectFilterProps) {
   return (
-    <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
+    <nav className="flex flex-wrap items-center gap-2">
       {filters.map((filter) => {
         const active = activeType === filter.value;
         return (
@@ -26,10 +26,10 @@ export default function ProjectFilter({ activeType }: ProjectFilterProps) {
                 ? "/projects"
                 : `/projects?type=${filter.value}`
             }
-            className={`serial transition-colors ${
+            className={`px-4 py-2 rounded-full border text-[12px] tracking-wide transition-all ${
               active
-                ? "text-ink border-b border-ink pb-0.5"
-                : "hover:text-ink"
+                ? "border-maroon bg-maroon text-cream"
+                : "border-ink/15 text-ink/65 hover:border-ink/30"
             }`}
           >
             {filter.label}

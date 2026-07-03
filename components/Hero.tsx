@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import RevealText from "@/components/motion/RevealText";
 import MagneticButton from "@/components/motion/MagneticButton";
@@ -13,7 +13,12 @@ interface HeroProps {
   title: string;
   eyebrow?: string;
   subtitle?: string;
-  image: string;
+  /** Single hero image. Ignored when `images` is provided. */
+  image?: string;
+  /** Multiple images cycle as a Ken-Burns crossfade slideshow. */
+  images?: string[];
+  /** Interval between slide changes in ms (default 6500). */
+  slideInterval?: number;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   compact?: boolean;
@@ -26,6 +31,8 @@ export default function Hero({
   eyebrow = "Dantata Town Developers",
   subtitle,
   image,
+  images,
+  slideInterval = 6500,
   primaryCta,
   secondaryCta,
   compact = false,
@@ -41,6 +48,18 @@ export default function Hero({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  const slides = images && images.length > 0 ? images : image ? [image] : [];
+  const [slideIndex, setSlideIndex] = useState(0);
+  const isSlideshow = slides.length > 1;
+
+  useEffect(() => {
+    if (!isSlideshow || reduced) return;
+    const id = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % slides.length);
+    }, slideInterval);
+    return () => clearInterval(id);
+  }, [isSlideshow, reduced, slides.length, slideInterval]);
+
   return (
     <section
       ref={ref}
@@ -49,18 +68,47 @@ export default function Hero({
       }`}
     >
       <motion.div style={{ y }} className="absolute inset-0">
-        <div className="absolute inset-0 ken-burns">
-          <Image
-            src={image}
-            alt=""
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
+        <div className="absolute inset-0">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={slideIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0 ken-burns"
+            >
+              <Image
+                src={slides[slideIndex] ?? "/hero1.png"}
+                alt=""
+                fill
+                priority={slideIndex === 0}
+                className="object-cover"
+                sizes="100vw"
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/20 to-ink/85" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/65 via-ink/20 to-transparent" />
+
+        {isSlideshow && (
+          <div className="absolute bottom-8 right-6 lg:right-12 z-10 flex items-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setSlideIndex(i)}
+                aria-label={`Show slide ${i + 1}`}
+                className={`h-[3px] rounded-full transition-all duration-500 ${
+                  slideIndex === i
+                    ? "w-8 bg-gold"
+                    : "w-4 bg-cream/30 hover:bg-cream/60"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </motion.div>
 
       <motion.div

@@ -18,7 +18,7 @@ export default function HomePage() {
       <Hero
         title="Building Communities. Creating Value."
         subtitle="DTDL is an infrastructure-led real estate developer crafting master-planned communities across Abuja and Kano — homes, roads, power, water and security delivered as one vision."
-        image="/hero1.png"
+        images={["/hero1.png", "/hero2.png"]}
         primaryCta={{ label: "Explore Projects", href: "/projects" }}
         showVisitCTA
       />

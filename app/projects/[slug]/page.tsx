@@ -2,11 +2,22 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  ImageIcon,
+  MapPin,
+  Home,
+  Calendar,
+  CheckCircle2,
+} from "lucide-react";
 import PageContainer from "@/components/PageContainer";
+import SectionHeading from "@/components/SectionHeading";
 import ExpressInterestButton from "@/components/ExpressInterestButton";
 import ScheduleVisitButton from "@/components/ScheduleVisitButton";
 import ProjectGallery from "@/components/ProjectGallery";
-import { ImageIcon, ArrowUpRight } from "lucide-react";
+import CTASection from "@/components/CTASection";
 import {
   getProjectBySlug,
   getAllProjectSlugs,
@@ -51,27 +62,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const total = projects.length;
   const next = projects[(index + 1) % total];
   const prev = projects[(index - 1 + total) % total];
-  const [city, region] = project.location.split(",").map((s) => s.trim());
+  const [city] = project.location.split(",").map((s) => s.trim());
+
+  const specs = [
+    { icon: MapPin, label: "Location", value: project.location },
+    {
+      icon: Home,
+      label: "Units",
+      value: project.units > 0 ? project.units.toLocaleString() : "Mixed-use",
+    },
+    {
+      icon: Calendar,
+      label: "Launched",
+      value: project.yearLaunched ? String(project.yearLaunched) : "—",
+    },
+    {
+      icon: CheckCircle2,
+      label: "Status",
+      value: project.status.charAt(0).toUpperCase() + project.status.slice(1),
+    },
+  ];
 
   return (
-    <div className="bg-paper text-ink">
-      {/* ── Breadcrumb rail ── */}
-      <div className="border-b border-rule pt-28">
-        <PageContainer>
-          <div className="flex items-center justify-between py-4">
-            <Link href="/projects" className="serial hover:text-ink">
-              ⟵ All estates
-            </Link>
-            <p className="serial">
-              {city} · {project.status}
-            </p>
-          </div>
-        </PageContainer>
-      </div>
-
-      {/* ── Full-bleed hero image ── */}
-      <section className="relative">
-        <div className="relative aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-paper-deep">
+    <>
+      {/* ── Hero ── */}
+      <section className="relative min-h-[80vh] flex items-end overflow-hidden bg-ink">
+        <div className="absolute inset-0 ken-burns">
           <Image
             src={project.heroImage}
             alt={project.title}
@@ -81,174 +97,161 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             className="object-cover"
           />
         </div>
-      </section>
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-ink/20 to-ink/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/60 via-transparent to-transparent" />
 
-      {/* ── Title block (under hero) ── */}
-      <section className="pt-16 pb-12 lg:pt-24 lg:pb-20">
-        <PageContainer>
-          <div className="grid grid-cols-12 gap-6 items-end">
-            <div className="col-span-12 lg:col-span-9">
-              <p className="serial mb-6">
-                {project.type} · {region ?? city}
-              </p>
-              <h1 className="display-serif text-[clamp(2.5rem,7vw,6rem)]">
-                {project.title}
-              </h1>
-            </div>
-            <div className="col-span-12 lg:col-span-3 lg:text-right flex lg:flex-col gap-3 lg:items-end">
-              <ExpressInterestButton
-                label="Express Interest"
-                variant="primary"
-                project={project.title}
-              />
-              <ScheduleVisitButton
-                label="Schedule a Visit"
-                variant="outline"
-                project={project.title}
-              />
-            </div>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-16 lg:pb-24">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-cream/70 hover:text-gold transition-colors mb-8"
+          >
+            <ArrowLeft size={14} />
+            All projects
+          </Link>
+
+          <div className="flex items-center gap-3 mb-6">
+            <span className="h-px w-10 bg-gold" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-gold">
+              {project.type} · {city}
+            </span>
           </div>
-        </PageContainer>
+
+          <h1 className="display-serif text-5xl md:text-6xl lg:text-7xl text-cream max-w-4xl leading-[1.02]">
+            {project.title}
+          </h1>
+
+          <p className="mt-6 text-lg text-cream/75 leading-relaxed max-w-2xl">
+            {project.description}
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <ExpressInterestButton
+              label="Express Interest"
+              variant="primary"
+              project={project.title}
+            />
+            <ScheduleVisitButton
+              label="Schedule a Visit"
+              variant="ghost-on-dark"
+              project={project.title}
+            />
+          </div>
+        </div>
       </section>
 
-      {/* ── Metadata strip ── */}
-      <section className="border-y border-ink">
+      {/* ── Spec strip ── */}
+      <section className="bg-ink border-t border-cream/10">
         <PageContainer>
-          <dl className="metadata-strip grid-cols-2 md:grid-cols-5 !border-0">
-            <div>
-              <dt>Locale</dt>
-              <dd>{city}</dd>
-            </div>
-            <div>
-              <dt>Region</dt>
-              <dd>{region ?? "—"}</dd>
-            </div>
-            <div>
-              <dt>Units</dt>
-              <dd>{project.units.toLocaleString()}</dd>
-            </div>
-            <div>
-              <dt>Typology</dt>
-              <dd className="capitalize">{project.type}</dd>
-            </div>
-            <div>
-              <dt>Est.</dt>
-              <dd>{project.yearLaunched ?? "—"}</dd>
-            </div>
-          </dl>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-10">
+            {specs.map((spec) => (
+              <div key={spec.label} className="flex items-start gap-3">
+                <span className="shrink-0 w-9 h-9 rounded-lg bg-cream/5 grid place-items-center text-gold">
+                  <spec.icon size={15} strokeWidth={1.8} />
+                </span>
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-cream/50 mb-1">
+                    {spec.label}
+                  </p>
+                  <p className="text-cream font-medium">{spec.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </PageContainer>
       </section>
 
       {/* ── Overview ── */}
-      <section className="py-20 lg:py-32">
+      <section className="py-24 lg:py-28 bg-cream">
         <PageContainer>
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 lg:col-span-3">
-              <p className="serial">Overview</p>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="h-px w-10 bg-maroon" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-maroon">
+                  Overview
+                </span>
+              </div>
+              <h2 className="display-serif text-3xl md:text-4xl lg:text-5xl text-ink">
+                A community engineered end-to-end.
+              </h2>
             </div>
-            <div className="col-span-12 lg:col-span-8 lg:col-start-5">
-              <p className="display-serif text-2xl md:text-3xl lg:text-4xl leading-snug mb-10 italic font-light">
-                &ldquo;{project.description}&rdquo;
-              </p>
-              <p className="text-base lg:text-lg leading-relaxed text-mute">
-                {project.longDescription}
-              </p>
+            <div className="lg:col-span-7 space-y-5 text-ink/75 text-[17px] leading-relaxed">
+              <p>{project.longDescription}</p>
             </div>
           </div>
         </PageContainer>
       </section>
 
-      {/* ── Image break ── */}
-      {project.galleryImages?.[0] && (
-        <section className="relative">
-          <div className="relative aspect-[21/9] lg:aspect-[21/8] overflow-hidden bg-paper-deep">
-            <Image
-              src={project.galleryImages[0]}
-              alt={`${project.title} — interior view`}
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-        </section>
-      )}
-
       {/* ── House types ── */}
       {project.houseTypes && project.houseTypes.length > 0 && (
-        <section className="py-20 lg:py-32 bg-paper-deep/40">
+        <section className="py-24 lg:py-28 bg-cream-deep">
           <PageContainer>
-            <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-12 lg:col-span-3">
-                <p className="serial">Typologies</p>
-                <h2 className="display-serif text-3xl md:text-4xl mt-4">
-                  House types.
-                </h2>
-              </div>
-              <div className="col-span-12 lg:col-span-8 lg:col-start-5">
-                <ul className="divide-y divide-rule border-y border-rule">
-                  {project.houseTypes.map((type) => (
-                    <li
-                      key={type}
-                      className="display-serif text-xl md:text-2xl py-5"
-                    >
-                      {type}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <SectionHeading
+              align="left"
+              label="Typologies"
+              title="House types on offer."
+              description="Diverse unit configurations designed for families, professionals, and multi-generational households."
+            />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {project.houseTypes.map((type) => (
+                <div
+                  key={type}
+                  className="group relative p-5 rounded-xl bg-white border border-ink/8 flex items-center gap-4 hover:border-maroon/40 transition-colors"
+                >
+                  <span className="shrink-0 w-8 h-8 rounded-lg bg-maroon/10 text-maroon grid place-items-center">
+                    <Home size={15} strokeWidth={1.8} />
+                  </span>
+                  <span className="text-[15px] text-ink font-medium">
+                    {type}
+                  </span>
+                </div>
+              ))}
             </div>
           </PageContainer>
         </section>
       )}
 
       {/* ── Amenities ── */}
-      <section className="py-20 lg:py-32 border-t border-rule">
+      <section className="py-24 lg:py-28 bg-cream">
         <PageContainer>
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 lg:col-span-3">
-              <p className="serial">Amenities</p>
-              <h2 className="display-serif text-3xl md:text-4xl mt-4">
-                On the grounds.
-              </h2>
-            </div>
-            <div className="col-span-12 lg:col-span-8 lg:col-start-5">
-              <ul className="grid grid-cols-1 md:grid-cols-2 border-y border-rule">
-                {project.amenities.map((amenity, i) => (
-                  <li
-                    key={`${amenity.label}-${i}`}
-                    className="display-serif text-xl py-5 md:px-6 first:md:pl-0 last:md:pr-0 border-b border-rule md:border-b-0 md:[&:nth-child(odd)]:border-r md:[&:nth-child(odd)]:border-rule md:[&:nth-last-child(-n+2)]:border-b-0"
-                  >
-                    {amenity.label}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <SectionHeading
+            align="left"
+            label="Amenities"
+            title="What's on the grounds."
+            description="Every DTDL estate is built as a complete community — retail, worship, wellness and recreation designed in from day one."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {project.amenities.map((amenity, i) => (
+              <div
+                key={`${amenity.label}-${i}`}
+                className="p-6 rounded-2xl bg-white border border-ink/8 card-elevate"
+              >
+                <span className="inline-flex w-10 h-10 rounded-lg bg-gold/15 text-gold-dark items-center justify-center mb-4">
+                  <CheckCircle2 size={17} strokeWidth={1.8} />
+                </span>
+                <p className="text-ink font-medium">{amenity.label}</p>
+              </div>
+            ))}
           </div>
         </PageContainer>
       </section>
 
-      {/* ── Gallery — Embla carousel (only when on-site photos exist) ── */}
+      {/* ── Gallery / Pixieset ── */}
       {project.galleryImages && project.galleryImages.length >= 2 ? (
-        <section className="py-20 lg:py-32 bg-paper-deep/40">
+        <section className="py-24 lg:py-28 bg-cream-deep">
           <PageContainer>
-            <div className="mb-12">
-              <p className="serial">Gallery</p>
-              <h2 className="display-serif text-3xl md:text-4xl mt-4">
-                Visual record.
-              </h2>
-            </div>
+            <SectionHeading
+              align="left"
+              label="Gallery"
+              title="Visual record."
+              description="A curated selection from the site — swipe through, or open the full Pixieset library below."
+            />
             <ProjectGallery images={project.galleryImages} alt={project.title} />
           </PageContainer>
         </section>
       ) : (
-        <section className="py-20 lg:py-32 bg-paper-deep/40">
+        <section className="py-24 lg:py-28 bg-cream-deep">
           <PageContainer>
-            <div className="mb-12">
-              <p className="serial">Gallery</p>
-              <h2 className="display-serif text-3xl md:text-4xl mt-4">
-                The full photo portfolio.
-              </h2>
-            </div>
             <a
               href={getPixiesetUrl(project)}
               target="_blank"
@@ -268,9 +271,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     Browse the full {project.title} collection.
                   </h3>
                   <p className="text-cream/70 max-w-xl leading-relaxed">
-                    We host the complete high-resolution photo library on
-                    Pixieset — architectural renders, unit interiors, site
-                    progress and drone shots. Opens in a new tab.
+                    The complete high-resolution photo library — architectural renders, unit interiors, site progress and drone shots. Opens in a new tab.
                   </p>
                 </div>
                 <div className="md:col-span-4 md:text-right">
@@ -286,56 +287,52 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       )}
 
       {/* ── Adjacent estates ── */}
-      <section className="border-t border-ink">
+      <section className="py-16 lg:py-20 bg-cream border-t border-ink/8">
         <PageContainer>
-          <div className="py-16 lg:py-24 grid grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             <Link
               href={`/projects/${prev.slug}`}
-              className="group block border-r border-rule pr-6"
+              className="group p-8 rounded-2xl bg-white border border-ink/8 card-elevate flex items-center gap-5"
             >
-              <p className="serial mb-3">⟵ Previous estate</p>
-              <h3 className="display-serif text-2xl md:text-3xl group-hover:text-bordeaux transition-colors">
-                {prev.title}
-              </h3>
+              <span className="shrink-0 w-11 h-11 rounded-full border border-ink/15 grid place-items-center text-ink group-hover:border-maroon group-hover:text-maroon transition-colors">
+                <ArrowLeft size={16} />
+              </span>
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-stone mb-1">
+                  Previous
+                </p>
+                <p className="display-serif text-xl text-ink group-hover:text-maroon transition-colors truncate">
+                  {prev.title}
+                </p>
+              </div>
             </Link>
             <Link
               href={`/projects/${next.slug}`}
-              className="group block text-right pl-6"
+              className="group p-8 rounded-2xl bg-white border border-ink/8 card-elevate flex items-center gap-5 md:text-right md:flex-row-reverse"
             >
-              <p className="serial mb-3">Next estate ⟶</p>
-              <h3 className="display-serif text-2xl md:text-3xl group-hover:text-bordeaux transition-colors">
-                {next.title}
-              </h3>
+              <span className="shrink-0 w-11 h-11 rounded-full border border-ink/15 grid place-items-center text-ink group-hover:border-maroon group-hover:text-maroon transition-colors">
+                <ArrowRight size={16} />
+              </span>
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-stone mb-1">
+                  Next
+                </p>
+                <p className="display-serif text-xl text-ink group-hover:text-maroon transition-colors truncate">
+                  {next.title}
+                </p>
+              </div>
             </Link>
           </div>
         </PageContainer>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-ink text-paper">
-        <PageContainer>
-          <div className="py-20 lg:py-28 grid grid-cols-12 gap-6 items-end">
-            <div className="col-span-12 lg:col-span-8">
-              <p className="serial mb-6 text-gilt">Enquire</p>
-              <h2 className="display-serif text-4xl md:text-5xl lg:text-6xl">
-                See {project.title} in person.
-              </h2>
-            </div>
-            <div className="col-span-12 lg:col-span-4 lg:text-right flex flex-wrap lg:justify-end gap-3">
-              <ExpressInterestButton
-                label="Express Interest"
-                variant="primary"
-                project={project.title}
-              />
-              <ScheduleVisitButton
-                label="Schedule a Visit"
-                variant="ghost-on-dark"
-                project={project.title}
-              />
-            </div>
-          </div>
-        </PageContainer>
-      </section>
+      <CTASection
+        title={`Ready to explore ${project.title}?`}
+        description="Book a private site visit or start a conversation — our advisory team responds within one business day."
+        ctaLabel="Schedule a Visit"
+        ctaHref="/contact"
+        showInterestCTA
+      />
 
       <script
         type="application/ld+json"
@@ -355,6 +352,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           }),
         }}
       />
-    </div>
+    </>
   );
 }
