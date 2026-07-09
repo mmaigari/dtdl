@@ -76,7 +76,7 @@ export default function InfrastructurePage() {
       <Hero
         title="Infrastructure that sets the standard."
         subtitle="We build the foundation first. Roads, drainage, power and water designed by in-house engineering teams — so residents enjoy a complete community from day one."
-        image="/hero1.png"
+        image="/infrastructure/hero.jpg"
         eyebrow="Infrastructure"
         compact
       />
@@ -101,7 +101,14 @@ export default function InfrastructurePage() {
                 <div className={`lg:col-span-6 ${i % 2 === 1 ? "lg:[direction:ltr]" : ""}`}>
                   <div className="relative aspect-[5/4] rounded-2xl overflow-hidden bg-ink/5">
                     <Image
-                      src={["/dhe1.png", "/distr2.png", "/dhe3.png", "/distr4.png"][i] || "/dhe1.png"}
+                      src={
+                        [
+                          "/infrastructure/road.jpg",
+                          "/infrastructure/drainage.jpg",
+                          "/infrastructure/electrification.jpg",
+                          "/infrastructure/water.jpg",
+                        ][i] || "/infrastructure/road.jpg"
+                      }
                       alt={cap.title}
                       fill
                       className="object-cover"
@@ -133,10 +140,20 @@ export default function InfrastructurePage() {
         </PageContainer>
       </section>
 
-      <section className="relative py-28 bg-ink overflow-hidden">
+      <section className="relative py-28 lg:py-36 bg-ink overflow-hidden">
+        <Image
+          src="/navy.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink" />
         <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(circle_at_1px_1px,_white_1px,_transparent_0)] [background-size:32px_32px]" />
+
         <PageContainer>
-          <div className="grid lg:grid-cols-12 gap-10 items-end">
+          <div className="relative grid lg:grid-cols-12 gap-10 items-end">
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-5">
                 <span className="h-px w-10 bg-gold" />
@@ -145,10 +162,10 @@ export default function InfrastructurePage() {
                 </span>
               </div>
               <h2 className="display-serif text-4xl md:text-6xl text-cream">{featured.name}</h2>
-              <p className="mt-5 text-cream/65 max-w-xl text-[17px] leading-relaxed">{featured.blurb}</p>
+              <p className="mt-5 text-cream/70 max-w-xl text-[17px] leading-relaxed">{featured.blurb}</p>
             </div>
             <div className="lg:col-span-5 lg:text-right">
-              <div className="inline-flex items-center gap-3 text-cream/70">
+              <div className="inline-flex items-center gap-3 text-cream/75">
                 <MapPin size={16} className="text-gold" />
                 <span className="font-mono text-[11px] tracking-[0.22em] uppercase">{featured.location}</span>
               </div>

@@ -8,6 +8,7 @@ import HeritageIntro from "@/components/sections/HeritageIntro";
 import CoreValues from "@/components/sections/CoreValues";
 import AmenitiesShowcase from "@/components/sections/AmenitiesShowcase";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
+import PortfolioMoments from "@/components/sections/PortfolioMoments";
 import { getFeaturedProjects } from "@/lib/projects";
 
 export default function HomePage() {
@@ -46,6 +47,8 @@ export default function HomePage() {
       </section>
 
       <CoreValues />
+
+      <PortfolioMoments />
 
       <AmenitiesShowcase />
 
