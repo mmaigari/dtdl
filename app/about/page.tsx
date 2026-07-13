@@ -65,18 +65,28 @@ const officers: Officer[] = [
   { name: "Mr. Ibrahim Garba", role: "Chief Business Officer", remit: "Sales, customer relations, marketing and post-handover community engagement." },
 ];
 
-function OfficerCard({ officer }: { officer: Officer }) {
-  const initials = officer.name
-    .split(" ")
-    .filter((w) => !/^(Alhaji|Engr\.|Mr\.|Mrs\.|Dr\.)$/i.test(w))
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("");
-
-  return (
-    <div className="group rounded-2xl bg-white border border-ink/8 card-elevate overflow-hidden">
-      <div className="relative aspect-[4/5] overflow-hidden bg-cream-deep">
-        {officer.portrait ? (
+/**
+ * OfficerCard has two modes:
+ *  1. Visual (default) — 4:5 portrait frame with grayscale→color hover.
+ *     Renders only when EVERY officer in the section has a `portrait`.
+ *  2. Text-first — no image frame, just role · name · remit.
+ *     Renders when any portrait is missing, so the section never mixes
+ *     real photos with placeholders.
+ *
+ * When all portrait files land, the section flips back to visual mode
+ * automatically.
+ */
+function OfficerCard({
+  officer,
+  showPortrait,
+}: {
+  officer: Officer;
+  showPortrait: boolean;
+}) {
+  if (showPortrait && officer.portrait) {
+    return (
+      <div className="group rounded-2xl bg-white border border-ink/8 card-elevate overflow-hidden">
+        <div className="relative aspect-[4/5] overflow-hidden bg-cream-deep">
           <Image
             src={officer.portrait}
             alt={officer.name}
@@ -84,26 +94,44 @@ function OfficerCard({ officer }: { officer: Officer }) {
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
           />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-cream-deep to-ink/5">
-            <span className="display-serif text-8xl text-ink/25">{initials}</span>
+          <div className="absolute top-4 left-4">
+            <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-[0.18em] uppercase bg-cream/95 text-ink">
+              {officer.role}
+            </span>
           </div>
-        )}
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 rounded-full text-[10px] font-mono tracking-[0.18em] uppercase bg-cream/95 text-ink">
-            {officer.role}
-          </span>
+        </div>
+        <div className="p-6">
+          <h3 className="display-serif text-xl text-ink mb-2">{officer.name}</h3>
+          <p className="text-sm text-ink/65 leading-relaxed">{officer.remit}</p>
         </div>
       </div>
-      <div className="p-6">
-        <h3 className="display-serif text-xl text-ink mb-2">{officer.name}</h3>
+    );
+  }
+
+  // Text-first fallback — used until all portraits are available.
+  return (
+    <div className="group relative p-7 md:p-8 rounded-2xl bg-white border border-ink/8 card-elevate overflow-hidden">
+      <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-maroon via-gold to-transparent opacity-70" />
+      <div className="relative">
+        <span className="inline-block font-mono text-[10px] tracking-[0.22em] uppercase text-maroon mb-4">
+          {officer.role}
+        </span>
+        <h3 className="display-serif text-2xl md:text-[1.6rem] text-ink leading-tight mb-4">
+          {officer.name}
+        </h3>
         <p className="text-sm text-ink/65 leading-relaxed">{officer.remit}</p>
+        <span className="block mt-6 h-px w-10 bg-gold" />
       </div>
     </div>
   );
 }
 
 export default function AboutPage() {
+  // Show portrait frames only when every officer in a section has one;
+  // otherwise fall back to the text-first card style.
+  const boardHasAllPortraits = board.every((o) => Boolean(o.portrait));
+  const officersHaveAllPortraits = officers.every((o) => Boolean(o.portrait));
+
   return (
     <>
       <Hero
@@ -229,7 +257,11 @@ export default function AboutPage() {
           />
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl">
             {board.map((officer) => (
-              <OfficerCard key={officer.name} officer={officer} />
+              <OfficerCard
+                key={officer.name}
+                officer={officer}
+                showPortrait={boardHasAllPortraits}
+              />
             ))}
           </div>
         </PageContainer>
@@ -245,7 +277,11 @@ export default function AboutPage() {
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {officers.map((officer) => (
-              <OfficerCard key={officer.name} officer={officer} />
+              <OfficerCard
+                key={officer.name}
+                officer={officer}
+                showPortrait={officersHaveAllPortraits}
+              />
             ))}
           </div>
         </PageContainer>
