@@ -17,6 +17,7 @@ import SectionHeading from "@/components/SectionHeading";
 import ExpressInterestButton from "@/components/ExpressInterestButton";
 import ScheduleVisitButton from "@/components/ScheduleVisitButton";
 import ProjectGallery from "@/components/ProjectGallery";
+import ProjectPricing from "@/components/ProjectPricing";
 import CTASection from "@/components/CTASection";
 import {
   getProjectBySlug,
@@ -235,6 +236,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </PageContainer>
       </section>
+
+      {/* ── Pricing ── */}
+      {project.pricing && (
+        <section className="py-24 lg:py-28 bg-cream-deep">
+          <PageContainer>
+            <SectionHeading
+              align="left"
+              label="Pricing & payment"
+              title="Available units."
+              description="Transparent pricing across every stage on offer. Payment plans and bank details are shared privately once you've spoken to our sales team."
+            />
+            <ProjectPricing
+              pricing={project.pricing}
+              projectName={project.title}
+            />
+          </PageContainer>
+        </section>
+      )}
 
       {/* ── Gallery / Pixieset ── */}
       {project.galleryImages && project.galleryImages.length >= 2 ? (

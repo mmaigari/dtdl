@@ -3,6 +3,31 @@ export interface ProjectAmenity {
   label: string;
 }
 
+export type FinishStage = "Finished" | "Shell" | "Carcass" | "DPC";
+
+export interface UnitPrice {
+  type: string;
+  size?: string;
+  price: number;             // in Naira
+  stage?: FinishStage;
+  paymentMonths?: number;    // e.g. 9, 12
+  note?: string;
+}
+
+export interface ProjectPricing {
+  units: UnitPrice[];
+  /** Blanket payment terms shown as a callout below the table. */
+  paymentPlan?: string;
+  /** e.g. "Certificate of Occupancy (C of O)" */
+  title?: string;
+  /** URL to a downloadable price sheet PDF. */
+  priceListPdf?: string;
+  /** e.g. "July 2026" — timestamp for the sheet. */
+  updated?: string;
+  /** Free-form fine print. */
+  disclaimer?: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -22,6 +47,7 @@ export interface Project {
   featured: boolean;
   houseTypes?: string[];
   yearLaunched?: number;
+  pricing?: ProjectPricing;
 }
 
 /**
@@ -164,6 +190,31 @@ export const projects: Project[] = [
       { icon: "GraduationCap", label: "School" },
     ],
     featured: false,
+    pricing: {
+      updated: "July 2026",
+      paymentPlan: "12-month payment plan available on every stage",
+      title: "Certificate of Occupancy (C of O)",
+      disclaimer: "Prices are subject to change. Contact our sales team for the current price list.",
+      units: [
+        // Finished houses
+        { type: "4-Bedroom Semi-Detached", size: "357 SQM", price: 231_500_000, stage: "Finished" },
+        { type: "3-Bedroom Flat", price: 86_000_000, stage: "Finished" },
+        { type: "2-Bedroom Flat", price: 66_600_000, stage: "Finished" },
+        { type: "1-Bedroom Flat", price: 46_000_000, stage: "Finished" },
+        // Shell houses
+        { type: "5-Bedroom Duplex", size: "550 SQM", price: 263_500_000, stage: "Shell" },
+        { type: "4-Bedroom Semi-Detached", size: "357 SQM", price: 185_150_000, stage: "Shell" },
+        { type: "4-Bedroom Terrace", size: "237 SQM", price: 181_875_000, stage: "Shell" },
+        // Carcass houses
+        { type: "5-Bedroom Duplex", size: "550 SQM", price: 195_500_000, stage: "Carcass" },
+        { type: "4-Bedroom Semi-Detached", size: "357 SQM", price: 115_000_000, stage: "Carcass" },
+        { type: "4-Bedroom Terrace", size: "237 SQM", price: 97_500_000, stage: "Carcass" },
+        // DPC houses
+        { type: "5-Bedroom Duplex", size: "550 SQM", price: 105_800_000, stage: "DPC" },
+        { type: "4-Bedroom Semi-Detached", size: "357 SQM", price: 79_500_000, stage: "DPC" },
+        { type: "4-Bedroom Terrace", size: "237 SQM", price: 66_200_000, stage: "DPC" },
+      ],
+    },
   },
   {
     slug: "dantata-city",
@@ -199,6 +250,20 @@ export const projects: Project[] = [
       { icon: "Users", label: "Club House" },
     ],
     featured: true,
+    pricing: {
+      updated: "July 2026",
+      paymentPlan: "9-month payment plan available",
+      title: "Certificate of Occupancy (C of O)",
+      disclaimer: "Prices are subject to change. Contact our sales team for the current price list.",
+      units: [
+        {
+          type: "5-Bedroom Line Duplex",
+          price: 72_450_000,
+          paymentMonths: 9,
+          note: "All rooms en-suite · modern fitted kitchen · guest toilet · ample parking",
+        },
+      ],
+    },
   },
   {
     slug: "the-residence-by-dantata",
@@ -305,6 +370,40 @@ export const projects: Project[] = [
       { icon: "GraduationCap", label: "School" },
     ],
     featured: false,
+  },
+  {
+    slug: "metro-view-estate",
+    title: "Metro View Estate",
+    location: "Idu, Abuja",
+    type: "residential",
+    status: "ongoing",
+    units: 0,
+    yearLaunched: 2026,
+    description:
+      "Modern living, prime location, great investment. A contemporary residential development at Idu, Abuja — semi-detached duplexes designed for growing families and value-seeking investors.",
+    longDescription:
+      "Metro View Estate at Idu, Abuja is DTDL's newest residential release — modern semi-detached duplexes engineered for growing families and value-seeking investors. Its prime location offers quick access to the Idu Industrial Area, the airport road and central Abuja, while the estate itself brings the infrastructure-first design DTDL is known for: quality roads, dependable power and water, and secure perimeter. Homes are offered at shell stage so buyers can finish to their own taste, backed by a straightforward payment structure and clear title.",
+    heroImage: "/hero1.png",
+    cardImage: "/hero1.png",
+    houseTypes: ["3-Bedroom Semi-Detached Duplex", "4-Bedroom Semi-Detached Duplex"],
+    amenities: [
+      { icon: "Shield", label: "24/7 Security" },
+      { icon: "Route", label: "Good Road Network" },
+      { icon: "Droplet", label: "Drainage System" },
+      { icon: "Zap", label: "Street Lights" },
+      { icon: "TreePine", label: "Green Areas" },
+    ],
+    featured: true,
+    pricing: {
+      updated: "July 2026",
+      paymentPlan: "Flexible payment plan available on request",
+      title: "Certificate of Occupancy (C of O)",
+      disclaimer: "Prices are subject to change. Contact our sales team for the current price list.",
+      units: [
+        { type: "3-Bedroom Semi-Detached Duplex", price: 166_800_000, stage: "Shell" },
+        { type: "4-Bedroom Semi-Detached Duplex", price: 190_800_000, stage: "Shell" },
+      ],
+    },
   },
 ];
 
