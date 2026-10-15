@@ -24,7 +24,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    lines: ["+234 809 050 0100", "+234 901 119 1919"],
+    lines: ["+234 809 050 0100", "+234 703 102 1819"],
     actions: [
       { href: "tel:+2348090500100", label: "Call +234 809 050 0100" },
       { href: "tel:+2348090500100", label: "Call +234 703 102 1819" },
