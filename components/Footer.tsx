@@ -139,7 +139,7 @@ export default function Footer() {
                   </a>
                 </p>
                 <p>
-                  <a href="tel:+2349011191919" className="hover:text-gold transition-colors">
+                  <a href="tel:+2348090500100" className="hover:text-gold transition-colors">
                     +234 901 119 1919
                   </a>
                 </p>

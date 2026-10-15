@@ -19,7 +19,7 @@ export default function FloatingContact() {
             className="flex flex-col gap-2 items-start"
           >
             <a
-              href="https://wa.me/2349011191919"
+              href="https://wa.me/2348090500100"
               target="_blank"
               rel="noreferrer"
               className="group flex items-center gap-3 bg-cream text-ink shadow-lg pl-2 pr-4 py-2 rounded-full border border-ink/5 hover:bg-white"
