@@ -14,7 +14,7 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Infrastructure", href: "/infrastructure" },
   { label: "Investors", href: "/investors" },
-  { label: "Careers", href: "/careers" },
+  { label: "Careers", href: "https://dantatatown.convergenix.cloud/jobs" },
   { label: "Contact", href: "/contact" },
 ];
 

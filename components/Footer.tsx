@@ -9,7 +9,7 @@ const footerLinks = {
   company: [
     { label: "About Us", href: "/about" },
     { label: "Gallery", href: "/gallery" },
-    { label: "Careers", href: "/careers" },
+    { label: "Careers", href: "https://dantatatown.convergenix.cloud/jobs" },
     { label: "Investors", href: "/investors" },
     { label: "Infrastructure", href: "/infrastructure" },
   ],
